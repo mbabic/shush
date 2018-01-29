@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Shush
 
 main :: IO ()
-main = someFunc
+main = example

@@ -1,7 +1,7 @@
 name:                shush
 version:             0.1.0.0
 github:              "mbabic/shush"
-license:             BSD3
+license:             Unlicense
 author:              "Marko Babic"
 maintainer:          "mbabic@ualberta.ca"
 copyright:           "2018 Marko Babic"
@@ -17,10 +17,19 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on Github at <https://github.com/mbabic/shush#readme>
+description: Please see the README on Github at <https://github.com/mbabic/shush#readme>
 
 dependencies:
-- base >= 4.7 && < 5
+# - ALUT >= 2.4.0.2 && < 2.5
+- attoparsec == 0.13.*
+- base == 4.*
+- bytestring == 0.10.*
+- exceptions == 0.8.*
+- extra == 1.6.*
+- OpenAL == 1.7.*
+- primitive == 0.6.*
+- signal == 1.2.*
+- text == 1.2.*
 
 library:
   source-dirs: src
