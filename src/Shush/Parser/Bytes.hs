@@ -1,12 +1,7 @@
-module Shush.Parser.ByteParser
+module Shush.Parser.Bytes
   ( int16le
   , int32le
   , expect
-  , P.string
-  , P.take
-  , P.parse
-  , P.Result
-  , Parser
   ) where
 
 import           Control.Monad (fail)

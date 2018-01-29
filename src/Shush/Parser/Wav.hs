@@ -1,27 +1,22 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Shush.Parser.WavParser where
+module Shush.Parser.Wav where
 
-import           Prelude                    hiding (take)
+import Prelude hiding (take)
 
-import           Control.Monad              (fail, when)
-import           Data.ByteString            (ByteString)
-import           Debug.Trace
-import           Numeric.Extra              (intToFloat)
-import           Shush.Parser.ByteParser
-import           Sound.OpenAL.AL.BasicTypes (ALsizei)
-import qualified Sound.OpenAL.AL.Buffer     as ALB
-import qualified Sound.OpenAL.ALC.Context   as ALC
+import Control.Monad (fail, when)
+import Data.ByteString (ByteString)
+import Debug.Trace
+import Numeric.Extra (intToFloat)
+import Sound.OpenAL.AL.BasicTypes (ALsizei)
 
--- todo: this will choke on big files, lots of copying happening
-data Sample a
-  = Sample
-  { sampleFormat    :: ALB.Format    -- ^ Sound format. E.g., Mono8
-  , sampleFrequency :: ALC.Frequency -- ^ Frequency for mixing output buffer in Hz.
-  , sampleSize      :: ALsizei       -- ^ Sample size in bytes.
-  , sampleData      :: ByteString    -- ^ The data associated with the sample
-  }
+import Shush.Parser (Parser, parse, string, take)
+import Shush.Parser.Bytes (expect, int16le, int32le)
+import Shush.Sample 
 
-wav :: Parser (Sample ())
+import qualified Sound.OpenAL.AL.Buffer   as ALB
+import qualified Sound.OpenAL.ALC.Context as ALC
+
+wav :: Parser Sample
 wav = do
   _               <- string "RIFF"
   fsize           <- int32le
@@ -63,5 +58,5 @@ mkFormat _ _  = Nothing
 formatError :: Int -> Int -> Parser a
 formatError channels bitsPerSample =
   fail $
-    "Unkown format. channels: " ++ show channels ++ ",  bit depth: " ++
+    "Unknown format. channels: " ++ show channels ++ ",  bit depth: " ++
     show bitsPerSample
