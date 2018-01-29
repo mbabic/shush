@@ -1,30 +1,23 @@
 module Shush.Parser.Bytes
   ( int16le
   , int32le
-  , expect
   ) where
 
-import           Control.Monad (fail)
-import qualified Data.Attoparsec.ByteString as P
-import           Data.Bits ((.|.), shiftL)
-import qualified Data.ByteString            as BS
-import           Data.Int (Int16, Int32)
-import           Data.Word (Word16, Word32)
+import Prelude hiding (take)
 
-type Parser = P.Parser
+import Control.Monad (fail)
+import Data.Attoparsec.ByteString
+import Data.Bits ((.|.), shiftL)
+import Data.Int (Int16, Int32)
+import Data.Word (Word16, Word32)
 
-expect :: (Show a, Eq a) => (a -> Bool) -> Parser a -> Parser a
-expect pred p= do
-  result <- p
-  if pred result
-    then return result
-    else fail $ "'" ++ show result ++ "' failed to satisfy predicate."
+import qualified Data.ByteString as BS
 
 -- 16 bit combinators ----------------------------------------------------------
 -- | Read 16 bit word in little endian format
 word16le :: Parser Word16
 word16le = do
-  bytes <- P.take 2
+  bytes <- take 2
   let b0 =  fromIntegral (bytes `BS.index` 0)
       b1 = (fromIntegral (bytes `BS.index` 1)) `shiftL` 8
   return $! b1 .|. b0
@@ -37,7 +30,7 @@ int16le = word16le >>= return . fromIntegral
 -- | Read 32 bit word in little endian format
 word32le :: Parser Word32
 word32le = do
-  bytes <- P.take 4
+  bytes <- take 4
   let b0 =  fromIntegral (bytes `BS.index` 0)
       b1 = (fromIntegral (bytes `BS.index` 1)) `shiftL` 8
       b2 = (fromIntegral (bytes `BS.index` 2)) `shiftL` 16

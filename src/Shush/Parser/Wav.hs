@@ -9,9 +9,9 @@ import Debug.Trace
 import Numeric.Extra (intToFloat)
 import Sound.OpenAL.AL.BasicTypes (ALsizei)
 
-import Shush.Parser (Parser, parse, string, take)
-import Shush.Parser.Bytes (expect, int16le, int32le)
-import Shush.Sample 
+import Shush.Parser (expect, Parser, parse, string, take)
+import Shush.Parser.Bytes (int16le, int32le)
+import Shush.Sample
 
 import qualified Sound.OpenAL.AL.Buffer   as ALB
 import qualified Sound.OpenAL.ALC.Context as ALC
