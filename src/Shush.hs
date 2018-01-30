@@ -19,6 +19,7 @@ import Sound.OpenAL
 
 import Shush.Parser (Parser, parse)
 import Shush.Parser.Wav (wav)
+import Shush.Noise
 import Shush.Sample
 
 import qualified Data.ByteString          as BS
@@ -59,10 +60,11 @@ example = do
   --  - pass BufferData to Buffer, attach Buffer to Source, play Source
   buf    <- genObjectName :: IO ALB.Buffer
   bs     <- BS.readFile "/Users/markobabic/src/shush/data/sample.wav"
-  sample <-
-    case parse wav bs of
-      Done _ r     -> return r
-      Fail _ _ msg -> fail $ "Failed. Msg: " ++ msg
+  -- sample <-
+  --   case parse wav bs of
+  --     Done _ r     -> return r
+  --     Fail _ _ msg -> fail $ "Failed. Msg: " ++ msg
+  sample <- return $ whiteNoise 10000
 
   bytes  <- return $ BS.unpack $ sampleData sample
   ba     <- BA.newPinnedByteArray $ fromIntegral $ sampleSize sample

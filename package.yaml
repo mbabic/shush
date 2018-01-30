@@ -26,6 +26,7 @@ dependencies:
 - bytestring == 0.10.*
 - exceptions == 0.8.*
 - extra == 1.6.*
+- MonadRandom == 0.5.*
 - OpenAL == 1.7.*
 - primitive == 0.6.*
 - signal == 1.2.*
