@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Shush.Parser.Wav where
+module Shush.Parser.Wav
+  ( wav
+  ) where
 
 import Prelude hiding (take)
 
@@ -16,6 +18,7 @@ import Shush.Sample
 import qualified Sound.OpenAL.AL.Buffer   as ALB
 import qualified Sound.OpenAL.ALC.Context as ALC
 
+-- | .wav ByteString parser
 wav :: Parser Sample
 wav = do
   _               <- string "RIFF"
@@ -47,13 +50,6 @@ wav = do
         , sampleData      = bytes
         }
     else fail $ "Invalid .wav header"
-
-mkFormat :: Int -> Int -> Maybe ALB.Format
-mkFormat 1  8 = Just ALB.Mono8
-mkFormat 2  8 = Just ALB.Stereo8
-mkFormat 1 16 = Just ALB.Mono16
-mkFormat 2 16 = Just ALB.Stereo16
-mkFormat _ _  = Nothing
 
 formatError :: Int -> Int -> Parser a
 formatError channels bitsPerSample =

@@ -1,5 +1,6 @@
 module Shush.Sample
   ( Sample(..)
+  , mkFormat
   ) where
 
 import Data.ByteString (ByteString)
@@ -18,3 +19,10 @@ data Sample
   , sampleFrequency :: ALC.Frequency -- ^ Frequency for mixing output buffer in Hz.
   , sampleSize      :: ALsizei       -- ^ Sample size in bytes.
   }
+
+mkFormat :: Int -> Int -> Maybe ALB.Format
+mkFormat 1  8 = Just ALB.Mono8
+mkFormat 2  8 = Just ALB.Stereo8
+mkFormat 1 16 = Just ALB.Mono16
+mkFormat 2 16 = Just ALB.Stereo16
+mkFormat _ _  = Nothing

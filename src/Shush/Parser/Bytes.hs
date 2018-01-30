@@ -13,7 +13,6 @@ import Data.Word (Word16, Word32)
 
 import qualified Data.ByteString as BS
 
--- 16 bit combinators ----------------------------------------------------------
 -- | Read 16 bit word in little endian format
 word16le :: Parser Word16
 word16le = do
@@ -26,7 +25,6 @@ word16le = do
 int16le :: Parser Int16
 int16le = word16le >>= return . fromIntegral
 
--- 32 bit combinators ----------------------------------------------------------
 -- | Read 32 bit word in little endian format
 word32le :: Parser Word32
 word32le = do
