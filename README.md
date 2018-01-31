@@ -89,5 +89,12 @@ alBufferData(buffer, AL_FORMAT_MONO8, test, 1000, 11024)
   
 - [DSP Generation of Pink Noise](http://www.firstpr.com.au/dsp/pink-noise/)
 
+- The freealut impl has [some informative code](https://github.com/vancegroup/freealut/blob/master/src/alutWaveform.c#L94)
+  for generating waveforms and putting into a handy format
+  
+- Worth pulling in a library [to work with 16 bit floats](https://hackage.haskell.org/package/half)
+
+- A cute look at [making a small sound generation lib in Haskell](https://github.com/blacktaxi/inversion/blob/4602dd301baf07a3f3d76992868510d1fbf8d78a/src/Preview.hs)
+
 - Is there a way to stream generated data to OpenAL? Better than creating a big 
   buffer of noise and looping it.
